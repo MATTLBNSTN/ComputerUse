@@ -5,17 +5,22 @@
   "scripts": {
     "build": "tsc",
     "ingest": "ts-node src/ingest.ts",
-    "generate": "ts-node src/generate.ts"
+    "generate": "ts-node src/generate.ts",
+    "start:server": "ts-node src/server.ts"
   },
   "dependencies": {
     "@google-cloud/vertexai": "^1.9.0",
     "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.48.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.0",
+    "express": "^5.2.1",
     "googleapis": "^144.0.0",
     "puppeteer": "^24.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^22.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.0"

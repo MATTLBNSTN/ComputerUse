@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
@@ -22,10 +22,147 @@ interface JobListing {
     job_link: string;
     hiring_manager?: string | null;
     user_id: string; // We'll need a default user ID or fetch from config
+    is_actioned?: boolean;
 }
 
-async function scrapeJobs() {
-    console.log('Starting ingestion Agent...');
+export interface IngestOptions {
+    source: 'linkedin' | 'xray' | 'indeed';
+    keywords?: string;
+    location?: string;
+}
+import { scrapeXray } from './xray';
+import { scrapeIndeed } from './indeed';
+
+// Helper function to process job links (visit, extract description, save to DB)
+async function processJobLinks(jobs: JobListing[], browser: Browser) {
+    for (const job of jobs) {
+        // Visit each job to get Description
+        console.log(`Processing: ${job.role_title} at ${job.company_name}`);
+        const jobPage = await browser.newPage();
+        try {
+            await jobPage.goto(job.job_link, { waitUntil: 'domcontentloaded' });
+
+            // Wait for description
+            let description = job.job_description; // Use pre-filled if available (e.g., from X-Ray)
+            if (description === 'To be scraped...') { // Only scrape if not already provided
+                try {
+                    await jobPage.waitForSelector('.description__text', { timeout: 5000 });
+                    description = await jobPage.evaluate(() => {
+                        return document.querySelector('.description__text')?.textContent?.trim() || '';
+                    });
+                } catch (e) {
+                    console.warn(`Failed to get description for ${job.job_link}`, e);
+                    description = 'Description not found or timed out.';
+                }
+            }
+
+            // Insert into Supabase
+            const { error } = await supabase.from('job_listings').upsert({
+                company_name: job.company_name,
+                role_title: job.role_title,
+                job_description: description,
+                job_link: job.job_link,
+                user_id: process.env.DEFAULT_USER_ID || 'user_2r...', // Needs to be set
+                is_actioned: job.is_actioned !== undefined ? job.is_actioned : false // Use existing or default
+            }, { onConflict: 'job_link', ignoreDuplicates: true }); // Using job_link as unique key if schema allows, or handle dups manually
+
+            if (error) console.error('Supabase error:', error);
+            else console.log('Saved to DB.');
+
+        } catch (e) {
+            console.error(`Error processing job link ${job.job_link}:`, e);
+        } finally {
+            await jobPage.close();
+        }
+
+        // Sleep random to avoid rate limits
+        await new Promise(r => setTimeout(r, 2000 + Math.random() * 3000));
+    }
+}
+
+export async function scrapeJobs(options?: IngestOptions) {
+    // Override defaults
+    const searchKeywords = options?.keywords || keywords;
+    const searchLocation = options?.location || location;
+
+    // --- X-RAY LOGIC ---
+    if (options?.source === 'xray') {
+        console.log(`Starting X-Ray ingestion for ${searchKeywords} in ${searchLocation}...`);
+        const links = await scrapeXray(searchKeywords, searchLocation);
+        console.log(`[Ingest] Found ${links.length} X-Ray results.`);
+
+        // Convert to standard format for DB
+        const jobs: JobListing[] = links.map(l => ({
+            company_name: 'Unknown (X-Ray)', // We don't get company from Google easily
+            role_title: l.title.replace(' | LinkedIn', ''),
+            job_link: l.link,
+            job_description: 'To be scraped...', // Mark for later scraping
+            user_id: process.env.DEFAULT_USER_ID || 'user_demo',
+            is_actioned: false
+        }));
+
+        // We can reuse the loop below to visit pages and get descriptions if we want
+        // But for safe mvp, let's just save them or maybe visit them carefully.
+        // For now, let's return or process them.
+        // Let's reuse the existing "Visit each job" loop by overwriting the 'jobs' variable if possible, 
+        // or just calling a shared processing function.
+        // Quickest path: Append to a list and let logic flow?
+        // Actually, the current logic defines `jobs` inside the Puppeteer block.
+        // We should refactor to separate "Find Jobs" from "Process Jobs".
+
+        // Refactor Plan:
+        // 1. Get Job Links (Source specific)
+        // 2. Process Job Links (Common)
+
+        const browser = await puppeteer.launch({
+            headless: false,
+            defaultViewport: { width: 1280, height: 800 },
+            userDataDir: './chrome_data', // Save cookies/session locally
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+        try {
+            await processJobLinks(jobs, browser);
+        } finally {
+            await browser.close();
+        }
+        return;
+    }
+
+    // --- INDEED LOGIC ---
+    if (options?.source === 'indeed') {
+        console.log(`Starting Indeed ingestion for ${searchKeywords} in ${searchLocation}...`);
+        const links = await scrapeIndeed(searchKeywords, searchLocation);
+        console.log(`[Ingest] Found ${links.length} Indeed results.`);
+
+        const jobs: JobListing[] = links.map(l => ({
+            company_name: l.company || 'Confidential',
+            role_title: l.title,
+            job_link: l.link,
+            job_description: 'To be scraped...',
+            user_id: process.env.DEFAULT_USER_ID || 'user_demo',
+            is_actioned: false
+        }));
+
+        const browser = await puppeteer.launch({
+            headless: false,
+            defaultViewport: { width: 1280, height: 800 },
+            userDataDir: './chrome_data',
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+        try {
+            await processJobLinks(jobs, browser);
+        } finally {
+            await browser.close();
+        }
+        return;
+    }
+
+    // --- LINKEDIN NATIVE LOGIC ---
+
+    const SEARCH_URL = `https://www.linkedin.com/jobs/search/?keywords=${encodeURIComponent(searchKeywords)}&location=${encodeURIComponent(searchLocation)}&f_WT=${encodeURIComponent(workType)}&origin=JOB_SEARCH_PAGE_JOB_FILTER`;
+
+    console.log(`Starting ingestion Agent for ${searchKeywords} in ${searchLocation}...`);
+
 
     const browser = await puppeteer.launch({
         headless: false,
@@ -83,41 +220,10 @@ async function scrapeJobs() {
 
         console.log(`Found ${jobs.length} jobs.`);
 
-        for (const job of jobs) {
-            // Visit each job to get Description
-            console.log(`Processing: ${job.role_title} at ${job.company_name}`);
-            const jobPage = await browser.newPage();
-            await jobPage.goto(job.job_link, { waitUntil: 'domcontentloaded' });
+        console.log(`Found ${jobs.length} jobs.`);
 
-            // Wait for description
-            try {
-                await jobPage.waitForSelector('.description__text', { timeout: 5000 });
-                const description = await jobPage.evaluate(() => {
-                    return document.querySelector('.description__text')?.textContent?.trim() || '';
-                });
-
-                // Insert into Supabase
-                const { error } = await supabase.from('job_listings').upsert({
-                    company_name: job.company_name,
-                    role_title: job.role_title,
-                    job_description: description,
-                    job_link: job.job_link,
-                    user_id: process.env.DEFAULT_USER_ID || 'user_2r...', // Needs to be set
-                    is_actioned: false
-                }, { onConflict: 'job_link', ignoreDuplicates: true }); // Using job_link as unique key if schema allows, or handle dups manually
-
-                if (error) console.error('Supabase error:', error);
-                else console.log('Saved to DB.');
-
-            } catch (e) {
-                console.warn('Failed to get description or write to DB', e);
-            } finally {
-                await jobPage.close();
-            }
-
-            // Sleep random to avoid rate limits
-            await new Promise(r => setTimeout(r, 2000 + Math.random() * 3000));
-        }
+        // Reuse shared processing
+        await processJobLinks(jobs, browser);
 
     } catch (err) {
         console.error('Scraping failed:', err);
@@ -126,4 +232,5 @@ async function scrapeJobs() {
     }
 }
 
-scrapeJobs();
+// No auto-execution for API mode
+// scrapeJobs();

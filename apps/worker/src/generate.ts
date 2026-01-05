@@ -31,7 +31,7 @@ const auth = new google.auth.GoogleAuth({
 const drive = google.drive({ version: 'v3', auth });
 const docs = google.docs({ version: 'v1', auth });
 
-async function generateAssets() {
+export async function generateAssets() {
     console.log('Starting Generator Agent...');
 
     const { data: jobs, error } = await supabase
@@ -160,4 +160,7 @@ async function generateAssets() {
     }
 }
 
-generateAssets();
+
+
+// No auto-execution for API mode
+// generateAssets();

@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
+import { ControlPanel } from '@/components/ControlPanel';
 import Link from 'next/link';
 import { FileText, Folder, CheckCircle, ExternalLink } from 'lucide-react';
 
@@ -53,6 +54,8 @@ export default async function DashboardPage() {
                     <p className="text-slate-500">Review generated assets and apply.</p>
                 </header>
 
+                <ControlPanel />
+
                 <section className="space-y-6">
                     <h3 className="text-lg font-semibold flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-blue-500"></div>
@@ -82,8 +85,8 @@ export default async function DashboardPage() {
                     </div>
                 </section>
 
-            </main>
-        </div>
+            </main >
+        </div >
     );
 }
 
