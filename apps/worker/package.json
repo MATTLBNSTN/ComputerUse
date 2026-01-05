@@ -1,0 +1,23 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "ingest": "ts-node src/ingest.ts",
+    "generate": "ts-node src/generate.ts"
+  },
+  "dependencies": {
+    "@google-cloud/vertexai": "^1.9.0",
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.48.0",
+    "dotenv": "^16.4.0",
+    "googleapis": "^144.0.0",
+    "puppeteer": "^24.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.0"
+  }
+}

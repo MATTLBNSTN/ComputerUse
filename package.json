@@ -1,0 +1,15 @@
+
+{
+  "name": "my-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Matthew Loebenstein <matt.loebenstein@googlemail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspaces run dev"
+  }
+}

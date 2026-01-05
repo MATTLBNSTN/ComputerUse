@@ -1,0 +1,68 @@
+Matthew Loebenstein
+Technical Product Lead | Digital Transformation & Scale 
+Technical Product Lead with 15+ years of experience bridging the gap between complex engineering and commercial strategy. Proven ability to launch "0-to-1" ventures and scale mature platforms, recently delivering a £20M ARR marketplace in under 16 months. Deep technical background (former developer/architect) combined with P&L accountability. Expert in navigating high-stakes environments from global airline systems (Amadeus) to luxury e-commerce (MATCHES) and enterprise consulting (KPMG).
+Contact details
+Locations: Cape Town, South Africa (relocated from London, United Kingdom) 
+Contact: (UK) 07944454599 | (SA) 0769772199 | matt.loebenstein@googlemail.com
+Citizenship/right to work: British and South African 
+Website: www.matthewloebenstein.com
+Github: https://github.com/MATTLBNSTN
+Skills
+Strategic Leadership: Product Strategy & Roadmapping, P&L Management (£20M+), Digital Transformation, C-Suite Stakeholder Management, B2B SaaS & Marketplace Strategy, Vendor & Partner Negotiation, Remote/Distributed Team Leadership.
+Technical & Operational: API Economy & iPaaS (MuleSoft), Composable Architecture (Optimizely, Dynamics), Agile/Scrum & Scaled Agile, Business Process Re-engineering, Generative AI Integration, High-Volume Transaction Systems (Amadeus Altea).
+Employment history
+Product Lead, KPMG, London
+April 2024 - November 2025
+Core Focus: Led a high-stakes digital transformation for a major UK healthcare provider, replacing legacy infrastructure with a modern composable architecture (Optimizely, MuleSoft, Dynamics CRM).
+
+Achievements:
+•	Commercial Transformation & Revenue Growth: Spearheaded the overhaul of the client’s commercial operating model, engineering a new enterprise sales pipeline. This initiative reduced team overhead by 25% while simultaneously increasing the Lead-to-SQL (Sales Qualified Lead) conversion rate by 20%.
+•	Product Strategy & Roadmap Definition: Architected the product vision and defined the roadmap for a patient booking platform as the centre piece of a complete website redesign, representing a £50M revenue opportunity. Successfully positioned this platform as the client’s primary digital channel for patient acquisition.
+•	Technical Innovation (GenAI): Championed the integration of Generative AI into the development lifecycle to automate API schema generation (REST/JSON). This reduced resourcing costs by £80k and accelerated delivery velocity by 11%, setting a new standard for technical efficiency.
+•	Stakeholder Management & Commercial Success: Bridged the gap between business goals and technical feasibility, securing consensus across C-suite stakeholders. Delivered a strategic roadmap that maximized client business value while ensuring a profitable contract exit for KPMG, protecting firm margins.
+•	Agile Leadership & Process Optimization: Directed a cross-functional team (BAs, Functional Consultants, Developers) and chaired Design Authorities. Established rigorous user story standards and backlog management processes that significantly improved refinement accuracy and enabled the delivery of a complex multi-platform solution in under 2 years.
+
+Responsibilities:
+●	Managed and mentored a team of three business analysts and functional consultants and ensured high-quality delivery across CMS and CRM workstreams.
+●	Chaired design authorities and review boards, presenting complex solutions and strategic recommendations to senior client stakeholders to secure design approval and maintain program momentum.
+●	Directed the product backlog and established new user story standards, significantly improving development velocity, refinement accuracy, and adherence to the client's strategic goals.
+
+Senior Product Manager | MATCHESFASHION London, UK | October 2022 — February 2024
+Core Focus: Founded and scaled the company’s first luxury marketplace vertical, owning the P&L, technical roadmap, and operational strategy to drive £20M in new revenue.
+Achievements:
+•	Venture Scaling & Revenue Generation: Launched a greenfield marketplace platform and scaled it to £20M ARR within 16 months (capturing 20% of total company sales). Secured exclusive strategic partnerships with top-tier luxury groups (Kering: Gucci, Saint Laurent; Max Mara Group).
+•	B2B SaaS Product Strategy: Conceptualized and led the delivery of a brand-agnostic B2B SaaS integration layer. This reduced partner onboarding complexity and setup time by 75%, accelerating the acquisition of high-value partners and supply.
+•	P&L Management & Unit Economics: Held full commercial ownership of the marketplace P&L. Successfully structured partner commissions to cover all operational costs (logistics, studio, tech), ensuring positive contribution margins on every transaction from Day 1.
+•	Operational Automation & Efficiency: Engineered the automation of the product creation pipeline using inbound ASN messages, reducing "time-to-site" for new inventory by 2 days. This enhancement directly increased inventory velocity and sell-through rates.
+•	Ecosystem Management: Orchestrated end-to-end operations across finance, logistics, and technical integrations, acting as the primary commercial lead to negotiate terms and drive adoption among major brand partners.
+
+Responsibilities:
+●	Defined the roadmap for the new platform service and related internal products across various departments, including buying, merchandising, logistics, finance, and data.
+●	Worked with product managers, engineering managers, engineers, designers, and tech leads to achieve system readiness and successful product initiatives.
+●	Managed and oversaw relationships with brand partners' business and technical teams.
+●	Served as a subject matter expert for concessions for both internal and external stakeholders.
+Product Manager | MATCHESFASHION London, UK | July 2020 – October 2022
+•	FinTech & Compliance Product Leadership: Led the development of a real-time tax and duty calculation engine. This system provided granular data traceability, directly enabling the finance team to recover £10M in tax claims from the IRS in 2023.
+•	Operational Efficiency: Identified a critical inefficiency in inventory management and launched a "Product Linking" feature. This automated the association of duplicate SKUs, eliminating physical relabeling and saving the organization £200k annually in warehouse labor costs.
+•	Platform Transition: Managed the "Wholesale to Platform" business logic transformation, defining the cross-functional operating model required to support hybrid inventory models.
+•	Commercial Integration: Owned the technical integration roadmap for new brand partners, compiling detailed software costings and negotiating integration fees to protect margins.
+Technical Business Analyst & Product Owner | Eurostar London, UK | May 2018 – February 2020
+•	Data-Driven Turnaround: Directed a cross-departmental diagnostic (Engineering, Depot, Operations) to identify the root causes of poor fleet availability.
+•	Strategic Execution: Translated analysis into a data-driven recovery roadmap presented to the Executive Committee, securing budget for targeted tooling improvements that stabilized fleet performance.
+Product Development Analyst | Amadeus London, UK | September 2015 – May 2018
+•	CX & Automation: Optimized the Altea suite’s automated rebooking algorithm for Air France-KLM. The enhanced logic automated baggage handling during flight disruptions, removing manual intervention at CDG and AMS hubs and saving £1M+ in annual operational costs.
+•	Enterprise Migration: Served as a functional lead on the international task force managing Southwest Airlines’ migration onto the Altea platform, ensuring zero downtime for one of the world's largest domestic carriers.
+Business Analyst | LVS (Betting & Gaming) London, UK | October 2014 – September 2015
+•	Complex Logic Design: Designed and launched a "Smart Bet" feature that generated dynamic betting slips based on real-time user heuristics, significantly increasing average bet size.
+•	System Implementation: Contributed to the delivery of a national lottery engine based on the French Lottery model, ensuring compliance with strict regulatory standards for international markets.
+Product Development Analyst | Amadeus London, UK | February 2013 — October 2014
+Core Focus: Led the "0-to-1" conceptualization and delivery of a mission-critical document verification engine, scaling it from a pilot to a global platform standard.
+Achievements:
+•	New Product Venture (0-to-1): Architected and launched an automated document-checking system from the ground up. Transformed an identified market gap into a core revenue stream, generating £10M in Annual Recurring Revenue (ARR). 
+•	Hyper-Scale Engineering: Designed the product architecture to support massive throughput and high availability, whilst keeping existing SLA commitments, successfully scaling the system to process 1 million+ passengers daily.
+•	Strategic Platform Integration: Orchestrated the seamless integration of the solution into the core Altea platform ecosystem, establishing it as a standard operational requirement for global airlines, their customers and ground handlers.
+Software Developer | Avient Airlines London, UK | January 2009 – February 2013
+•	Foundational Engineering: Built a greenfield cargo management system using the .NET stack, establishing the core technical skills that inform my product management approach today.
+Education
+Bachelor of Commerce , University of Cape Town, Cape Town
+
